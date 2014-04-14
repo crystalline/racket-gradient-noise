@@ -38,7 +38,10 @@
 
 (define (gradient-lookup v)
   (let* ((vi (map inexact->exact v))
-         (mix (bitwise-xor (@ vi 0) (@ vi 1))))
+         (mix (b^ #x27d4eb2f (bitwise-not
+                              (+ (b>> (@ vi 0) 2)
+                                 (b^ #b10100101010100110101 (@ vi 0))))
+                  (@ vi 1))))
     (vector-ref grad-table (modulo (inthash mix) gtl))))
 
 (define 10v '(1.0 0.0))
@@ -74,7 +77,9 @@
 ;(plot (function fade 0.0 1.0))
 
 (define screen (build/matrix (lambda (i j) (+ (grad-noise* i j 0.02)
-                                              (* 0.2 (grad-noise* i j 0.05)))) 512 512))
+                                              (* 0.3 (grad-noise* i j 0.05))
+                                              (* 0.15 (grad-noise* i j 0.1))))
+                                              512 512))
 
 (matrix-show screen)
 
