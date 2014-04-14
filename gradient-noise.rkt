@@ -77,8 +77,10 @@
 ;(plot (function fade 0.0 1.0))
 
 (define screen (build/matrix (lambda (i j) (+ (grad-noise* i j 0.02)
-                                              (* 0.3 (grad-noise* i j 0.05))
-                                              (* 0.15 (grad-noise* i j 0.1))))
+                                              (* 0.5 (grad-noise* i j 0.05))
+                                              (* 0.25 (grad-noise* i j 0.1))
+                                              (* 0.15 (grad-noise* i j 0.2))
+                                              (* 0.08 (grad-noise* i j 0.4))))
                                               512 512))
 
 (matrix-show screen)
